@@ -17,6 +17,7 @@ export class Livro {
     private quantDisponivel: number; // Quantidade disponível daquele exemplar
     private valorAquisicao: number; // Valor da arquisição do livro
     private statusLivroEmprestado: string; // Status do livro emprestado
+    private statusLivro: boolean = true; // Status do livro no sistema
 
     /**
     * Construtor da classe Livro
@@ -216,6 +217,24 @@ export class Livro {
         this.statusLivroEmprestado = _statusLivroEmprestado;
     }
 
+    /**
+     * Retorna o status do livro no sistema
+     * 
+     * @returns Status do livro no sistema
+     */
+    public getStatusLivro(): boolean {
+        return this.statusLivro;
+    }
+
+    /**
+     * Atribui o parâmetro ao atributo status livro
+     * 
+     * @param _statusLivro : Status do livro no sistema
+     */
+    public setStatusLivro(_statusLivro: boolean) {
+        this.statusLivro = _statusLivro;
+    }
+
     // MÉTODO PARA ACESSAR O BANCO DE DADOS
     // CRUD Create - READ - Update - Delete
 
@@ -252,6 +271,7 @@ export class Livro {
                 );
                 // adicionando o ID ao objeto
                 novoLivro.setIdLivro(livro.id_livro);
+                novoLivro.setStatusLivro(livro.status_livro);
 
                 // adicionando um livro na lista
                 listaDeLivros.push(novoLivro);

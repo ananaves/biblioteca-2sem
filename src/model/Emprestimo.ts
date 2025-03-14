@@ -12,7 +12,7 @@ export class Emprestimo{
     private idLivro: number; // Identificador do livro que foi emprestado
     private dataEmprestimo: Date; // Data do empréstimo
     private dataDevolucao: Date; // Data da devolução do livro
-    private statusEmprestimo: string; // Status do empréstimo
+    private statusEmprestimo: string; // Status do empréstimo 
 
      /**
      * Construtor da classe Emprestimos

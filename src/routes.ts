@@ -13,13 +13,13 @@ router.get('/', (req, res) => {
 // CRUD Aluno
 router.get(SERVER_ROUTES.LISTAR_ALUNOS, AlunoController.todos);
 router.post(SERVER_ROUTES.NOVO_ALUNO, AlunoController.cadastrar);
-router.delete(SERVER_ROUTES.REMOVER_ALUNO, AlunoController.remover);
+router.put(SERVER_ROUTES.REMOVER_ALUNO, AlunoController.remover);
 router.put(SERVER_ROUTES.ATUALIZAR_ALUNO, AlunoController.atualizar);
 
 //CRUD Livro
 router.get(SERVER_ROUTES.LISTAR_LIVROS, LivroController.todos);
 router.post(SERVER_ROUTES.NOVO_LIVRO, LivroController.cadastrar);
-router.delete(SERVER_ROUTES.REMOVER_LIVRO, LivroController.remover);
+router.put(SERVER_ROUTES.REMOVER_LIVRO, LivroController.remover);
 router.put(SERVER_ROUTES.ATUALIZAR_LIVRO, LivroController.atualizar);
 
 //CRUD Emprestimo
