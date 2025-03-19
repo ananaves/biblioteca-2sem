@@ -198,7 +198,7 @@ export class Aluno {
 
         try {
             // Query para consulta no banco de dados
-            const querySelectAluno = `SELECT * FROM Aluno;`;
+            const querySelectAluno = `SELECT * FROM Aluno WHERE status_aluno = TRUE;`;
 
             // executa a query no banco de dados
             const respostaBD = await database.query(querySelectAluno);    

@@ -249,7 +249,7 @@ export class Livro {
 
         try {
             // Query para consulta no banco de dados
-            const querySelectLivro = `SELECT * FROM Livro;`;
+            const querySelectLivro = `SELECT * FROM Livro WHERE status_livro = TRUE;`;
 
             // executa a query no banco de dados
             const respostaBD = await database.query(querySelectLivro);
@@ -348,12 +348,17 @@ export class Livro {
 
         try {
             // Cria a consulta para rmeover empréstimo do banco de dados
-            const queryDeleteEmprestimoLivro = `DELETE FROM emprestimo WHERE id_livro=${id_livro}`;
+            const queryDeleteEmprestimoLivro = `UPDATE emprestimo
+                                                    SET status_emprestimo_registro = FALSE 
+                                                    WHERE id_livro=${id_livro}`;
+                                                    
             // executa a query para remover empréstimo
             await database.query(queryDeleteEmprestimoLivro);
 
             // Construção da query SQL para deletar o Livro.
-            const queryDeleteLivro = `DELETE FROM Livro WHERE id_livro=${id_livro};`;
+            const queryDeleteLivro = `UPDATE livro
+                                        SET status_livro = FALSE 
+                                        WHERE id_livro=${id_livro};`;
 
             // Executa a query de exclusão e verifica se a operação foi bem-sucedida.
             await database.query(queryDeleteLivro)

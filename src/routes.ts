@@ -26,5 +26,6 @@ router.put(SERVER_ROUTES.ATUALIZAR_LIVRO, LivroController.atualizar);
 router.get(SERVER_ROUTES.LISTAR_EMPRESTIMOS, EmprestimoController.todos);
 router.post(SERVER_ROUTES.NOVO_EMPRESTIMO, EmprestimoController.cadastrar);
 router.put(SERVER_ROUTES.ATUALIZAR_EMPRESTIMO, EmprestimoController.atualizar);
+router.put(SERVER_ROUTES.REMOVER_EMPRESTIMO, EmprestimoController.remover);
 
 export { router }

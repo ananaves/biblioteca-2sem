@@ -36,7 +36,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Juliana\",\r\n    \"sobrenome\": \"Caldeira\",\r\n    \"dataNascimento\": \"2005-04-22\",\r\n    \"endereco\": \"Rua Joaquim Antônio Teixeira, 114\",\r\n    \"email\": \"juliana.sophia.caldeira@estadao.com.br\",\r\n    \"celular\": \"64987598648\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"Samuel\",\r\n    \"sobrenome\": \"Viana\",\r\n    \"dataNascimento\": \"1995-01-26\",\r\n    \"endereco\": \"Parque Leblon, 478\",\r\n    \"email\": \"samuel.caua.viana@facebook.com\",\r\n    \"celular\": \"85996712239\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -96,10 +96,10 @@
 				{
 					"name": "REMOVE ALUNO",
 					"request": {
-						"method": "DELETE",
+						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3333/remove/aluno?idAluno=21",
+							"raw": "http://localhost:3333/remove/aluno?idAluno=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -112,7 +112,7 @@
 							"query": [
 								{
 									"key": "idAluno",
-									"value": "21"
+									"value": "20"
 								}
 							]
 						}
@@ -211,10 +211,10 @@
 				{
 					"name": "REMOVE LIVRO",
 					"request": {
-						"method": "DELETE",
+						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3333/remove/livro?idLivro=21",
+							"raw": "http://localhost:3333/remove/livro?idLivro=20",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -227,7 +227,7 @@
 							"query": [
 								{
 									"key": "idLivro",
-									"value": "21"
+									"value": "20"
 								}
 							]
 						}
@@ -317,6 +317,32 @@
 								{
 									"key": "idEmprestimo",
 									"value": "29"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REMOVE EMPRÉSTIMO",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/remove/emprestimo?idEmprestimo=24",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"remove",
+								"emprestimo"
+							],
+							"query": [
+								{
+									"key": "idEmprestimo",
+									"value": "24"
 								}
 							]
 						}
