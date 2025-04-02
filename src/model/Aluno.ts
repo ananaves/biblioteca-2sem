@@ -300,7 +300,7 @@ export class Aluno {
     
             // Executa a query de exclusão e verifica se a operação foi bem-sucedida.
             await database.query(queryDeleteAluno)
-            .then((result) => {
+            .then((result: any) => {
                 if (result.rowCount != 0) {
                     queryResult = true; // Se a operação foi bem-sucedida, define queryResult como true.
                 }
@@ -339,7 +339,7 @@ export class Aluno {
 
             // Executa a query de atualização e verifica se a operação foi bem-sucedida.
             await database.query(queryAtualizarAluno)
-            .then((result) => {
+            .then((result: any) => {
                 if (result.rowCount != 0) {
                     queryResult = true; // Se a operação foi bem-sucedida, define queryResult como true.
                 }

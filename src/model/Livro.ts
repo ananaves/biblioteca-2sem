@@ -256,7 +256,7 @@ export class Livro {
 
             // percorre cada resultado retornado pelo banco de dados
             // livro é o apelido que demos para cada linha retornada do banco de dados
-            respostaBD.rows.forEach((livro) => {
+            respostaBD.rows.forEach((livro: any) => {
                 // criando objeto livro
                 let novoLivro = new Livro(
                     livro.titulo,
@@ -362,7 +362,7 @@ export class Livro {
 
             // Executa a query de exclusão e verifica se a operação foi bem-sucedida.
             await database.query(queryDeleteLivro)
-                .then((result) => {
+                .then((result: any) => {
                     if (result.rowCount != 0) {
                         queryResult = true; // Se a operação foi bem-sucedida, define queryResult como true.
                     }
@@ -403,7 +403,7 @@ export class Livro {
 
             // Executa a query de atualização e verifica se a operação foi bem-sucedida.
             await database.query(queryAtualizarLivro)
-                .then((result) => {
+                .then((result: any) => {
                     if (result.rowCount != 0) {
                         queryResult = true; // Se a operação foi bem-sucedida, define queryResult como true.
                     }
