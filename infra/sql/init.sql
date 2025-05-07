@@ -18,9 +18,12 @@ DROP TABLE IF EXISTS Aluno;
 DROP SEQUENCE IF EXISTS seq_ra;
 */
 
+-- Habilitar a extensão para geração de UUIDs
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
 CREATE SEQUENCE seq_ra START 1;
 
-CREATE TABLE Aluno (
+CREATE TABLE IF NOT EXISTS Aluno (
     id_aluno SERIAL PRIMARY KEY,
     ra VARCHAR (7) UNIQUE NOT NULL,
     nome VARCHAR (80) NOT NULL,
@@ -31,6 +34,7 @@ CREATE TABLE Aluno (
     celular VARCHAR (20) NOT NULL
 );
 
+-- Criar a função gerar_ra apenas se não existir
 CREATE OR REPLACE FUNCTION gerar_ra() RETURNS TRIGGER AS $$
 BEGIN
     NEW.ra := 'AAA' || TO_CHAR(nextval('seq_ra'), 'FM0000');
@@ -38,12 +42,18 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_gerar_ra
-BEFORE INSERT ON Aluno
-FOR EACH ROW EXECUTE FUNCTION gerar_ra();
+-- Criar a trigger trg_gerar_ra apenas se não existir
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_trigger WHERE tgname = 'trg_gerar_ra') THEN
+        CREATE TRIGGER trg_gerar_ra
+        BEFORE INSERT ON Aluno
+        FOR EACH ROW EXECUTE FUNCTION gerar_ra();
+    END IF;
+END $$;
 
 -- CREATE LIVRO
-CREATE TABLE Livro (
+CREATE TABLE IF NOT EXISTS Livro (
     id_livro SERIAL PRIMARY KEY,
     titulo VARCHAR (200) NOT NULL,
     autor VARCHAR (150) NOT NULL,
@@ -57,7 +67,7 @@ CREATE TABLE Livro (
 );
 
 -- CREATE EMPRESTIMO
-CREATE TABLE Emprestimo (
+CREATE TABLE IF NOT EXISTS Emprestimo (
     id_emprestimo SERIAL PRIMARY KEY,
     id_aluno INT REFERENCES Aluno(id_aluno),
     id_livro INT REFERENCES Livro(id_livro),
@@ -65,13 +75,41 @@ CREATE TABLE Emprestimo (
     data_devolucao DATE,
     status_emprestimo VARCHAR (20)
 );
-SELECT * FROM emprestimo;
-SELECT * FROM aluno;
-SELECT * FROM livro;
 
-ALTER TABLE aluno ADD COLUMN status_aluno BOOLEAN DEFAULT TRUE;
-ALTER TABLE emprestimo ADD COLUMN status_emprestimo_registro BOOLEAN DEFAULT TRUE;
-ALTER TABLE livro ADD COLUMN status_livro BOOLEAN DEFAULT TRUE;
+-- CREATE USUARIOS
+CREATE TABLE IF NOT EXISTS Usuario (
+    id_usuario SERIAL PRIMARY KEY,
+    uuid UUID DEFAULT gen_random_uuid() NOT NULL,
+    nome VARCHAR(70) NOT NULL,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
+    senha VARCHAR(50) NOT NULL
+);
+
+-- Criar a função gerar_senha_padrao apenas se não existir
+CREATE OR REPLACE FUNCTION gerar_senha_padrao()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.senha := NEW.username || '1234';
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Criar a trigger trigger_gerar_senha apenas se não existir
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_trigger WHERE tgname = 'trigger_gerar_senha') THEN
+        CREATE TRIGGER trigger_gerar_senha
+        BEFORE INSERT ON Usuario
+        FOR EACH ROW
+        EXECUTE FUNCTION gerar_senha_padrao();
+    END IF;
+END $$;
+
+-- Criar as colunas na tabela Aluno, Emprestimo e Livro, se ainda não existirem
+ALTER TABLE IF EXISTS Aluno ADD COLUMN IF NOT EXISTS status_aluno BOOLEAN DEFAULT TRUE;
+ALTER TABLE IF EXISTS Emprestimo ADD COLUMN IF NOT EXISTS status_emprestimo_registro BOOLEAN DEFAULT TRUE;
+ALTER TABLE IF EXISTS Livro ADD COLUMN IF NOT EXISTS status_livro BOOLEAN DEFAULT TRUE;
 
 -- ALUNO
 INSERT INTO Aluno (nome, sobrenome, data_nascimento, endereco, email, celular) 
@@ -119,6 +157,13 @@ VALUES
 (4, 5, '2024-09-11', '2024-09-25', 'Em andamento'),
 (6, 2, '2024-09-11', '2024-09-25', 'Em andamento');
 
+-- Inserindo usuarios
+INSERT INTO Usuario (nome, username, email) 
+VALUES
+('João Silva', 'joao.silva', 'joao.silva@email.com'),
+('Maria Oliveira', 'maria.oliveira', 'maria.oliveira@email.com'),
+('Carlos Souza', 'carlos.souza', 'carlos.souza@email.com');
+
 -- Aluno
 INSERT INTO Aluno (nome, sobrenome, data_nascimento, endereco, email, celular) 
 VALUES 
@@ -164,3 +209,8 @@ VALUES
 (13, 17, '2024-09-11', '2024-09-25', 'Atrasado'),
 (15, 16, '2024-09-11', '2024-09-25', 'Em andamento'),
 (17, 14, '2024-09-11', '2024-09-25', 'Concluído');
+
+SELECT * FROM Aluno;
+SELECT * FROM Emprestimo;
+SELECT * FROM Livro;
+SELECT * FROM Usuario;
