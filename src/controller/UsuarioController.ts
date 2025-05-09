@@ -72,6 +72,17 @@ class UsuarioController extends Usuario {
             res.status(500).json({ erro: 'Erro ao cadastrar usuário', detalhes: error });
         }
     }
+
+    static async todos(req: Request, res: Response) {
+        try {
+            const usuarios = await Usuario.listarUsuarios(); // você precisa ter esse método no modelo Usuario
+            res.status(200).json(usuarios);
+        } catch (error) {
+            console.error('Erro ao listar usuários:', error);
+            res.status(500).json({ erro: 'Erro ao listar usuários', detalhes: error });
+        }
+    }
+    
 }
 
 export default UsuarioController;

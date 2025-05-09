@@ -116,7 +116,7 @@ END $$;
 -- Criar as colunas na tabela Aluno, Emprestimo e Livro, se ainda não existirem
 ALTER TABLE IF EXISTS Aluno ADD COLUMN IF NOT EXISTS status_aluno BOOLEAN DEFAULT TRUE;
 ALTER TABLE IF EXISTS Emprestimo ADD COLUMN IF NOT EXISTS status_emprestimo_registro BOOLEAN DEFAULT TRUE;
-ALTER TABLE IF EXISTS Livro ADD COLUMN IF NOT EXISTS status_livro BOOLEAN DEFAULT TRUE;
+ALTER TABLE IF EXISTS Livro ADD COLUMN IF NOT __EXISTS status_livro BOOLEAN DEFAULT TRUE;
 
 -- ALUNO
 INSERT INTO Aluno (nome, sobrenome, data_nascimento, endereco, email, celular) 

@@ -173,6 +173,7 @@ export class Usuario {
                 // Atribui os valores adicionais ao objeto
                 novoUsuario.setIdUsuario(usuario.id_usuario);
                 novoUsuario.setUuidUsuario(usuario.uuid);
+                novoUsuario.setImagemPerfil(usuario.imagem_perfil);
 
                 // Adiciona o usuário à lista
                 listaDeUsuarios.push(novoUsuario);
