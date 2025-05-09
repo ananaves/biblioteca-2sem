@@ -86,6 +86,13 @@ CREATE TABLE IF NOT EXISTS Usuario (
     senha VARCHAR(50) NOT NULL
 );
 
+ALTER TABLE Usuario
+ADD COLUMN imagem_perfil VARCHAR(100);
+
+-- INSERINDO USUARIO ADMINISTRADOR
+INSERT INTO Usuario (nome, username, email, senha) 
+VALUES ('Administrador', 'admin', 'admin@email.com', 'Adm1n123');
+
 -- Criar a função gerar_senha_padrao apenas se não existir
 CREATE OR REPLACE FUNCTION gerar_senha_padrao()
 RETURNS TRIGGER AS $$
