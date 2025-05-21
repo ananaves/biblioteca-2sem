@@ -224,6 +224,7 @@ export class Usuario {
 
             // Retorna null para indicar que o cadastro não foi concluído
             return null;
+            
         }
     }
 
