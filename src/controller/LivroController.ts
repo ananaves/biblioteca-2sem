@@ -50,6 +50,8 @@ class LivroController extends Livro {
     static async cadastrar(req: Request, res: Response) {
         try {
             const dadosRecebidos: LivroDTO = req.body;
+            console.log(`req.body: ${JSON.stringify(req.body)}`);
+            console.log(`dados recebidos: ${JSON.stringify(dadosRecebidos)}`);
 
             // Instanciando objeto Livro
             const novoLivro = new Livro(
@@ -64,11 +66,16 @@ class LivroController extends Livro {
                 dadosRecebidos.statusLivroEmprestado ?? 'Disponível'
             );
 
+            console.log(`objeto 1: ${JSON.stringify(novoLivro)}`);
+
             // Chama o método para persistir o livro no banco de dados
             const result = await Livro.cadastrarLivro(novoLivro);
             // Verifica se o cadastro foi bem-sucedido
             if (result.queryResult && result.idLivro) {
                 novoLivro.setIdLivro(result.idLivro);
+
+                console.log(`objeto 2: ${JSON.stringify(novoLivro)}`);
+                console.log(req.file);
 
                 // Inserindo capa do livro, se informada
                 if (req.file) {

@@ -20,7 +20,7 @@ router.put(SERVER_ROUTES.ATUALIZAR_ALUNO, AlunoController.atualizar);
 
 //CRUD Livro
 router.get(SERVER_ROUTES.LISTAR_LIVROS, LivroController.todos);
-router.post(SERVER_ROUTES.NOVO_LIVRO, uploadCapa.single ('capa'), LivroController.cadastrar);
+router.post(SERVER_ROUTES.NOVO_LIVRO, uploadCapa.single('capa'), LivroController.cadastrar);
 router.put(SERVER_ROUTES.REMOVER_LIVRO, LivroController.remover);
 router.put(SERVER_ROUTES.ATUALIZAR_LIVRO, LivroController.atualizar);
 

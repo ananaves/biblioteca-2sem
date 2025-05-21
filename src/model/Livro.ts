@@ -325,14 +325,16 @@ export class Livro {
                     '${livro.getTitulo().toUpperCase()}',
                     '${livro.getAutor().toUpperCase()}',
                     '${livro.getEditora().toUpperCase()}',
-                    '${livro.getAnoPublicacao().toUpperCase()}',
+                    ${livro.getAnoPublicacao()},
                     '${livro.getISBN().toUpperCase()}',
-                    '${livro.getQuantTotal()}',
-                    '${livro.getQuantDisponivel()}',
-                    '${livro.getValorAquisicao()}',
+                    ${livro.getQuantTotal()},
+                    ${livro.getQuantDisponivel()},
+                    ${livro.getValorAquisicao()},
                     '${livro.getStatusLivroEmprestado().toUpperCase()}'
                 )
                 RETURNING id_livro;`;
+
+            console.log(queryInsertLivro);
 
             // executa a consulta no banco e armazena o resultado
             const result = await database.query(queryInsertLivro);
