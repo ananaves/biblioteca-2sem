@@ -1,0 +1,50 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "v1.0.0",
+    "title": "Biblioteca", 
+    "description": "Essa API fornece informações do back-end de uma biblioteca"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333",  
+      "description": ""
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+     "/novo/aluno": {
+      "post": {
+        "description": "Essa rota recebe informações de um aluno para cadastrar no bando de dados",
+        "responses": {
+          "200": {
+            "description": "Aluno cadastrado com sucesso"
+          },
+          "400": {
+            "description": "Não foi possível cadastrar o aluno no banco de dados"
+          }
+        },
+        "security": {
+            "apiKey": []
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

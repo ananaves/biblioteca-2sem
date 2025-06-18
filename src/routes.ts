@@ -6,11 +6,16 @@ import EmprestimoController from "./controller/EmprestimoController";
 import UsuarioController from "./controller/UsuarioController";
 import {upload, uploadCapa} from "./config/multerConfig"; // caminho pode variar dependendo da estrutura
 
+import swaggerUi from "swagger-ui-express"; // Importa a API do swagger
+import swaggerOutput from "../docs/swagger_doc.json"; // Importa o arquivo de saída do swagger
+
 const router = express.Router();
 
 router.get('/', (req, res) => {
     res.json({ mensagem: "Rota padrão" })
 });
+
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput)); // Rota para acessar a documentação
 
 // CRUD Aluno
 router.get(SERVER_ROUTES.LISTAR_ALUNOS, AlunoController.todos);
